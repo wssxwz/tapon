@@ -9,8 +9,8 @@ class TapOnGame {
         this.isPlaying = false;
         this.isRotating = false;
         this.rotation = 0;
-        this.baseRotationSpeed = 0.04; // base speed
-        this.rotationSpeed = 0.04; // current speed
+        this.baseRotationSpeed = 0.03; // base speed (slower for level 1)
+        this.rotationSpeed = 0.03; // current speed
         
         // Circle dimensions
         this.centerX = 0;
