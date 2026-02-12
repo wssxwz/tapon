@@ -56,21 +56,32 @@ body {
     line-height: 1;
 }
 
-.best-score {
+.score-display {
     display: flex;
     flex-direction: column;
+    gap: 4px;
     margin-top: 8px;
-    font-weight: 700;
+}
+
+.current-score-row,
+.best-score-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    justify-content: center;
+}
+
+.score-label {
+    font-size: 12px;
+    font-weight: 600;
     color: #2d3e50;
+    opacity: 0.7;
 }
 
-.best-score span:first-child {
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-.best-score span:last-child {
-    font-size: 32px;
+.score-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2d3e50;
 }
 
 /* Start Screen */
@@ -238,12 +249,12 @@ body {
         font-size: 56px;
     }
 
-    .best-score span:first-child {
-        font-size: 12px;
+    .score-label {
+        font-size: 11px;
     }
 
-    .best-score span:last-child {
-        font-size: 28px;
+    .score-value {
+        font-size: 20px;
     }
 
     .start-btn,
@@ -282,8 +293,8 @@ body {
         font-size: 48px;
     }
 
-    .best-score span:last-child {
-        font-size: 24px;
+    .score-value {
+        font-size: 18px;
     }
 }
 

@@ -5,12 +5,13 @@ class TapOnGame {
         
         // Game state
         this.level = 1;
+        this.score = 0; // Cumulative score
         this.bestScore = parseInt(localStorage.getItem('tapon_best') || '0');
         this.isPlaying = false;
         this.isRotating = false;
         this.rotation = 0;
-        this.baseRotationSpeed = 0.03; // base speed (slower for level 1)
-        this.rotationSpeed = 0.03; // current speed
+        this.baseRotationSpeed = 0.024; // base speed (0.03 * 0.8 = 0.024, reduced by 20%)
+        this.rotationSpeed = 0.024; // current speed
         
         // Circle dimensions
         this.centerX = 0;
@@ -130,20 +131,24 @@ class TapOnGame {
 
     start() {
         document.getElementById('startScreen').classList.add('hidden');
+        this.score = 0; // Reset score
         this.isPlaying = true;
         this.isRotating = true;
         this.rotation = 0;
+        this.updateScoreDisplay();
         this.gameLoop();
     }
 
     restart() {
         this.level = 1;
+        this.score = 0; // Reset score
         this.rotation = 0;
         this.calculateTargetZone();
         document.getElementById('gameOverScreen').classList.remove('show');
         this.isPlaying = true;
         this.isRotating = true;
         this.updateLevelDisplay();
+        this.updateScoreDisplay();
         this.gameLoop();
     }
 
@@ -180,6 +185,11 @@ class TapOnGame {
     }
 
     success() {
+        // Add score: 2^level
+        const levelScore = Math.pow(2, this.level);
+        this.score += levelScore;
+        console.log(`Level ${this.level} cleared! +${levelScore} points, Total: ${this.score}`);
+        
         // Show success message
         const successScreen = document.getElementById('successScreen');
         successScreen.classList.add('show');
@@ -193,9 +203,9 @@ class TapOnGame {
     fail() {
         this.isPlaying = false;
         
-        // Update best score
-        if (this.level > this.bestScore) {
-            this.bestScore = this.level;
+        // Update best score (now using cumulative score instead of level)
+        if (this.score > this.bestScore) {
+            this.bestScore = this.score;
             localStorage.setItem('tapon_best', this.bestScore.toString());
             this.updateBestScore();
         }
@@ -210,11 +220,16 @@ class TapOnGame {
         this.rotation = 0;
         this.calculateTargetZone();
         this.updateLevelDisplay();
+        this.updateScoreDisplay();
         this.isRotating = true;
     }
 
     updateLevelDisplay() {
         document.getElementById('currentLevel').textContent = this.level;
+    }
+
+    updateScoreDisplay() {
+        document.getElementById('currentScore').textContent = this.score;
     }
 
     updateBestScore() {
