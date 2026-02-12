@@ -119,11 +119,11 @@ class TapOnGame {
         this.targetEndAngle = randomStart + targetSize;
         
         // Update rotation speed based on level
-        // Level 1: 1.0x base speed (0.04)
-        // Level 10: 3.0x base speed (0.12)
-        // Linear progression: 1x → 3x over 10 levels
-        // Formula: 1x + (level-1) * (2x / 9) = 1x + (level-1) * 0.222x
-        const speedMultiplier = 1 + ((this.level - 1) * 2 / 9);
+        // Level 1: 1.0x base speed (0.03)
+        // Level 10: 2.0x base speed (0.06)
+        // Linear progression: 1x → 2x over 10 levels
+        // Formula: 1x + (level-1) * (1x / 9) = 1x + (level-1) * 0.111x
+        const speedMultiplier = 1 + ((this.level - 1) / 9);
         this.rotationSpeed = this.baseRotationSpeed * speedMultiplier;
         console.log(`Level ${this.level}: ${speedMultiplier.toFixed(2)}x speed = ${this.rotationSpeed.toFixed(4)} rad/frame`);
     }
