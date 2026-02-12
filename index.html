@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TapOn - 节奏闯关游戏</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- Game Info -->
+        <div class="game-info">
+            <div class="level-display">
+                <div class="current-level" id="currentLevel">1</div>
+                <div class="best-score">
+                    <span>BEST</span>
+                    <span id="bestScore">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <h1 class="game-title">TapOn</h1>
+            <p class="game-subtitle">点击或按空格键开始</p>
+            <button class="start-btn" onclick="game.start()">开始游戏</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div class="game-over-screen" id="gameOverScreen">
+            <h2>游戏结束</h2>
+            <p class="final-level">到达关卡: <span id="finalLevel">0</span></p>
+            <p class="message" id="message">再接再厉！</p>
+            <button class="restart-btn" onclick="game.restart()">重新开始</button>
+        </div>
+
+        <!-- Success Screen -->
+        <div class="success-screen" id="successScreen">
+            <h2>🎉 完美！</h2>
+            <p class="success-message">进入下一关</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
