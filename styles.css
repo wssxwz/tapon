@@ -12,6 +12,9 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    touch-action: none; /* Prevent default touch behaviors */
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .game-container {
@@ -27,6 +30,8 @@ body {
 #gameCanvas {
     display: block;
     cursor: pointer;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Game Info Overlay */
@@ -210,13 +215,95 @@ body {
     font-weight: 600;
 }
 
-/* Responsive */
+/* Responsive - Mobile Optimization */
 @media (max-width: 600px) {
+    body {
+        padding: 0;
+    }
+
+    .game-container {
+        max-width: 100%;
+        padding: 20px;
+    }
+
     .game-title {
         font-size: 48px;
     }
 
+    .game-subtitle {
+        font-size: 16px;
+    }
+
     .current-level {
         font-size: 56px;
+    }
+
+    .best-score span:first-child {
+        font-size: 12px;
+    }
+
+    .best-score span:last-child {
+        font-size: 28px;
+    }
+
+    .start-btn,
+    .restart-btn {
+        padding: 14px 40px;
+        font-size: 16px;
+    }
+
+    .game-over-screen h2 {
+        font-size: 40px;
+    }
+
+    .final-level {
+        font-size: 20px;
+    }
+
+    .final-level span {
+        font-size: 32px;
+    }
+
+    .success-screen h2 {
+        font-size: 40px;
+    }
+
+    .success-message {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 400px) {
+    .game-title {
+        font-size: 40px;
+    }
+
+    .current-level {
+        font-size: 48px;
+    }
+
+    .best-score span:last-child {
+        font-size: 24px;
+    }
+}
+
+/* Landscape mode on mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+    .game-container {
+        height: auto;
+    }
+
+    .game-title {
+        font-size: 36px;
+    }
+
+    .current-level {
+        font-size: 40px;
+    }
+
+    .start-btn,
+    .restart-btn {
+        padding: 10px 30px;
+        font-size: 14px;
     }
 }

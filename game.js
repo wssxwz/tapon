@@ -30,11 +30,53 @@ class TapOnGame {
     }
 
     setupCanvas() {
-        const size = Math.min(window.innerWidth, window.innerHeight, 500);
+        // Mobile-friendly sizing
+        const maxSize = 500;
+        const padding = 40; // Safe padding for mobile
+        const availableWidth = window.innerWidth - padding;
+        const availableHeight = window.innerHeight - padding - 100; // Extra space for text
+        
+        const size = Math.min(availableWidth, availableHeight, maxSize);
+        
         this.canvas.width = size;
         this.canvas.height = size;
         this.centerX = size / 2;
         this.centerY = size / 2;
+        
+        // Scale circle size for smaller screens
+        if (size < 400) {
+            const scale = size / 400;
+            this.outerRadius = 150 * scale;
+            this.innerRadius = 100 * scale;
+            this.ballRadius = 12 * scale;
+        }
+        
+        // Add resize handler
+        window.addEventListener('resize', () => this.handleResize());
+    }
+    
+    handleResize() {
+        // Recalculate canvas size on orientation change
+        const maxSize = 500;
+        const padding = 40;
+        const availableWidth = window.innerWidth - padding;
+        const availableHeight = window.innerHeight - padding - 100;
+        
+        const size = Math.min(availableWidth, availableHeight, maxSize);
+        
+        if (size !== this.canvas.width) {
+            this.canvas.width = size;
+            this.canvas.height = size;
+            this.centerX = size / 2;
+            this.centerY = size / 2;
+            
+            if (size < 400) {
+                const scale = size / 400;
+                this.outerRadius = 150 * scale;
+                this.innerRadius = 100 * scale;
+                this.ballRadius = 12 * scale;
+            }
+        }
     }
 
     setupControls() {
