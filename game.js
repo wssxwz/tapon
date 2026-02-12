@@ -9,8 +9,8 @@ class TapOnGame {
         this.isPlaying = false;
         this.isRotating = false;
         this.rotation = 0;
-        this.baseRotationSpeed = 0.02; // base speed
-        this.rotationSpeed = 0.02; // current speed
+        this.baseRotationSpeed = 0.05; // base speed (increased from 0.02)
+        this.rotationSpeed = 0.05; // current speed
         
         // Circle dimensions
         this.centerX = 0;
@@ -119,9 +119,10 @@ class TapOnGame {
         this.targetEndAngle = randomStart + targetSize;
         
         // Update rotation speed based on level
-        // Level 1: base speed (0.02)
-        // Level 10: 2x speed (0.04)
-        this.rotationSpeed = this.baseRotationSpeed * (1 + (this.level - 1) * 0.1);
+        // Level 1: base speed (0.05)
+        // Level 10: 3x speed (0.15)
+        // Progressive acceleration: each level adds 20% speed
+        this.rotationSpeed = this.baseRotationSpeed * (1 + (this.level - 1) * 0.2);
     }
 
     start() {
