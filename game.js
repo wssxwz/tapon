@@ -9,7 +9,8 @@ class TapOnGame {
         this.isPlaying = false;
         this.isRotating = false;
         this.rotation = 0;
-        this.rotationSpeed = 0.02; // radians per frame
+        this.baseRotationSpeed = 0.02; // base speed
+        this.rotationSpeed = 0.02; // current speed
         
         // Circle dimensions
         this.centerX = 0;
@@ -37,13 +38,24 @@ class TapOnGame {
     }
 
     setupControls() {
-        // Click/Tap
-        this.canvas.addEventListener('click', () => this.handleInput());
+        // Click/Tap on canvas
+        this.canvas.addEventListener('click', (e) => {
+            console.log('Canvas clicked');
+            this.handleInput();
+        });
+        
+        // Touch on canvas
+        this.canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            console.log('Canvas touched');
+            this.handleInput();
+        });
         
         // Spacebar
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && this.isPlaying) {
                 e.preventDefault();
+                console.log('Space pressed');
                 this.handleInput();
             }
         });
@@ -63,6 +75,11 @@ class TapOnGame {
         const randomStart = Math.random() * Math.PI * 2;
         this.targetStartAngle = randomStart;
         this.targetEndAngle = randomStart + targetSize;
+        
+        // Update rotation speed based on level
+        // Level 1: base speed (0.02)
+        // Level 10: 2x speed (0.04)
+        this.rotationSpeed = this.baseRotationSpeed * (1 + (this.level - 1) * 0.1);
     }
 
     start() {
@@ -85,9 +102,15 @@ class TapOnGame {
     }
 
     handleInput() {
-        if (!this.isRotating) return;
+        console.log('handleInput called, isPlaying:', this.isPlaying, 'isRotating:', this.isRotating);
+        
+        if (!this.isPlaying || !this.isRotating) {
+            console.log('Ignoring input - not in playing state');
+            return;
+        }
         
         this.isRotating = false;
+        console.log('Stopped rotating at angle:', this.rotation);
         
         // Check if ball is in target zone
         const ballAngle = this.normalizeAngle(this.rotation);
